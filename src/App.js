@@ -27,6 +27,8 @@ class App extends React.Component {
       <Input type='text' placeholder='eg. go to work' action={this.inputHandle}/>
       <Input type='submit' submit={this.submitHandle}/>
       <TaskList tasks={this.state.list}/>
+
+
     </div>
   );
 }
