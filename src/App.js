@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import {Input} from './components/Input.component'
+import {TaskList} from './components/TaskList.component'
+
+class App extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      text : '',
+      list  : []
+    }
+  }
+  inputHandle = (e) => {
+    this.setState({text : e.target.value})
+  }
+
+  submitHandle = () => {
+    const jointed = this.state.list.concat(this.state.text)
+    this.setState({list:jointed})
+    console.log(this.state);
+  }
+  render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1> Todo app</h1>
+      <Input type='text' placeholder='eg. go to work' action={this.inputHandle}/>
+      <Input type='submit' submit={this.submitHandle}/>
+      <TaskList tasks={this.state.list}/>
     </div>
   );
+}
 }
 
 export default App;
