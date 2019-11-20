@@ -1,30 +1,37 @@
 import React from 'react';
-// import {SearchBox,Button} from './SearchBox.components'
-import {UserList} from './List/UserList.component'
-import './App.css';
+
+import {Input} from './components/Input.component'
+import {TaskList} from './components/TaskList.component'
 
 class App extends React.Component {
   constructor(){
-    super() 
+    super()
     this.state = {
-      users : []
+      text : '',
+      list  : []
     }
   }
-  componentDidMount() {
-    fetch(`https://api.github.com/users`)
-    .then(response => response.json())
-    .then(users => this.setState({users: users}))
+  inputHandle = (e) => {
+    this.setState({text : e.target.value})
   }
-  
+
+  submitHandle = () => {
+    const jointed = this.state.list.concat(this.state.text)
+    this.setState({list:jointed})
+    console.log(this.state);
+  }
   render(){
-  
   return (
-    <div className='App'>
-      <UserList users={this.state.users}></UserList>
+    <div>
+      <h1> Todo app</h1>
+      <Input type='text' placeholder='eg. go to work' action={this.inputHandle}/>
+      <Input type='submit' submit={this.submitHandle}/>
+      <TaskList tasks={this.state.list}/>
+
+
     </div>
   );
 }
 }
-
 
 export default App;
